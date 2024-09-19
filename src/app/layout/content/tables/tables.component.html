@@ -1,0 +1,8 @@
+<div class="container">
+  <button mat-flat-button (click)="addTable()">Dodaj Tabele</button>
+
+  <!-- Iteracja przez tablicę tablesArray i wyświetlanie komponentów TableComponent -->
+  <div class="for" *ngFor="let table of tablesArray">
+    <app-table/>
+  </div>
+</div>

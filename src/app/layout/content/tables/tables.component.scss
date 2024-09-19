@@ -1,0 +1,21 @@
+.container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+}
+.for{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+}
+button{
+  margin: 32px 0;
+}
+app-table{
+  width: 70%;
+  margin-bottom: 32px;
+}

@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
-import { TableComponent } from './table/table.component';
+import {Component, DestroyRef, inject, OnInit} from '@angular/core';
+import {ProductElement, TableComponent} from './table/table.component';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import {NgForOf} from "@angular/common";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-tables',
@@ -18,6 +19,9 @@ import {NgForOf} from "@angular/common";
 })
 export class TablesComponent {
   tablesArray: number[] = [];
+
+
+
 
   addTable() {
     // Dodaje nową tabelę do tablicy

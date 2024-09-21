@@ -1,52 +1,51 @@
 <div>
-  <!-- Input for the table name -->
-  <input class="name" [(ngModel)]="tableName" placeholder="Wpisz nazwę tabeli" />
+  <form [formGroup]="form">
+  <input class="name" formControlName="name"  placeholder="Wpisz nazwę tabeli" />
 
-  <!-- Display the table name above the table -->
   <h2 *ngIf="tableName">{{ tableName }}</h2>
-
+  </form>
+  <form [formGroup]="formrow">
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-    <!-- Position Column -->
     <ng-container matColumnDef="position">
       <th mat-header-cell *matHeaderCellDef> No. </th>
       <td mat-cell *matCellDef="let element; let i = index"> {{i + 1}} </td>
     </ng-container>
 
-    <!-- Product Column -->
     <ng-container matColumnDef="product">
       <th mat-header-cell *matHeaderCellDef> Produkt </th>
       <td mat-cell *matCellDef="let element">
-        <input [(ngModel)]="element.product" placeholder="Wpisz produkt" />
+        <input  placeholder="Wpisz produkt" list="produkty" formControlName="product" />
+        <datalist id="produkty">
+          <option  *ngFor="let product of products" [value]="product">{{ product }}</option>
+        </datalist>
       </td>
     </ng-container>
 
-    <!-- Quantity Column -->
     <ng-container matColumnDef="quantity">
-      <th mat-header-cell *matHeaderCellDef> Ilość na sztuki </th>
+      <th mat-header-cell *matHeaderCellDef> Ilość</th>
       <td mat-cell *matCellDef="let element">
-        <input type="number" [(ngModel)]="element.quantity" placeholder="Wpisz ilość" />
+        <input type="number"  placeholder="Wpisz ilość" formControlName="quantity" />
       </td>
     </ng-container>
 
-    <!-- Weight Column -->
     <ng-container matColumnDef="weight">
       <th mat-header-cell *matHeaderCellDef> Waga (kg) </th>
       <td mat-cell *matCellDef="let element">
-        <input type="number" step="0.01" [(ngModel)]="element.weight" placeholder="Wpisz wagę" />
+        <input type="number" step="0.01"  placeholder="Wpisz wagę" formControlName="weight" />
       </td>
     </ng-container>
 
-    <!-- Actions Column -->
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef> Akcje </th>
       <td mat-cell *matCellDef="let element; let i = index">
-        <button mat-icon-button (click)="removeRow(i)">Usuń</button>
-        <button mat-flat-button (click)="addRow()">Dodaj wiersz</button>
+        <button  (click)="removeRow(i)">Usuń</button>
+        <button  (click)="addRow()">Dodaj wiersz</button>
       </td>
     </ng-container>
 
-    <!-- Header and Row Definitions -->
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
+  </form>
 </div>
+

@@ -13,7 +13,6 @@ export const routes: Routes = [
   {
     path:'print-content',
     loadComponent:()=>import('./layout/print-content/print-content.component').then(mod => mod.PrintContentComponent)
-  }
-
+  },
 
 ];

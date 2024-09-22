@@ -1,8 +1,9 @@
 <div class="container">
   <button mat-flat-button (click)="addTable()">Dodaj Tabele</button>
 
-  <!-- Iteracja przez tablicę tablesArray i wyświetlanie komponentów TableComponent -->
-  <div class="for" *ngFor="let table of tablesArray">
-    <app-table/>
+  <!-- Iterate through tablesArray and display TableComponent along with a delete button -->
+  <div class="for" *ngFor="let table of tablesArray; let i = index">
+    <app-table (tableChange)="updateTable(i, $event.name, $event.products)"></app-table>
+    <button mat-flat-button color="warn" (click)="removeTable(i)">Usuń Tabelę</button>
   </div>
 </div>

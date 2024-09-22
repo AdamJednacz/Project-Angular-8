@@ -1,9 +1,8 @@
-import {Component, DestroyRef, inject, OnInit} from '@angular/core';
-import { HttpClient } from '@angular/common/http';  // Import HttpClient
-import { MatTableModule } from '@angular/material/table';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { ProductsService } from "../../../../products.service";
 import {NgForOf, NgIf} from "@angular/common";
-import {ProductsService} from "../../../../products.service";
+import {MatTable, MatTableModule} from "@angular/material/table";
 
 export interface ProductElement {
   product: string;
@@ -14,75 +13,51 @@ export interface ProductElement {
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [MatTableModule, FormsModule, NgIf, NgForOf, ReactiveFormsModule],
   templateUrl: './table.component.html',
+  imports: [
+    ReactiveFormsModule,
+    NgIf,
+    MatTableModule,
+    NgForOf,
+    FormsModule
+  ],
   styleUrls: ['./table.component.scss']
 })
-export class TableComponent implements OnInit{
+export class TableComponent implements OnInit {
+  @Output() tableChange = new EventEmitter<{ name: string, products: ProductElement[] }>();
+
   tableName: string = '';
   displayedColumns: string[] = ['position', 'product', 'quantity', 'weight', 'actions'];
-  dataSource: ProductElement[] = [
-    { product: '', quantity: 0, weight: 0 },
-  ];
-
+  dataSource: ProductElement[] = [{ product: '', quantity: 0, weight: 0 }];
 
   form = new FormGroup({
-   name:new FormControl(""),
-
-  })
-  formrow = new FormGroup({
-    product:new FormControl(""),
-    quantity: new FormControl(""),
-    weight: new FormControl(""),
-  })
-
+    name: new FormControl(""),
+  });
   products: string[] = [];
   constructor(private productsService: ProductsService) {}
+
   ngOnInit() {
     this.products = this.productsService.getProducts();
     this.form.valueChanges.subscribe((value) => {
-      console.log(value); // Log form value changes
-    });
-    this.formrow.valueChanges.subscribe((value) => {
-      console.log(value); // Log form value changes
+      this.tableName = value.name ?? '';
+      this.emitTableChange();
     });
   }
+
 
   addRow() {
     const newRow: ProductElement = { product: '', quantity: 0, weight: 0 };
     this.dataSource = [...this.dataSource, newRow];
+    this.emitTableChange();
+
   }
 
   removeRow(index: number) {
     this.dataSource = this.dataSource.filter((_, i) => i !== index);
+    this.emitTableChange();
   }
 
-//
-//
-// kazdy row jako formularz
-
-//trzeba zrobić tak aby każda tabela była zapisywana w tablicy obiektów jako obiekt
-// [
-//  {
-//  name:string,
-//  [
-//    {
-//      product:string,
-//      quantity:number,
-//      weight:number
-//     }
-//     ]
-//  },
-//  {
-//  name:string,
-//  [
-//    {
-//      product:string,
-//      quantity:number,
-//      weight:number
-//     },
-//     ]
-//  }
-// ]
-
+  emitTableChange() {
+    this.tableChange.emit({ name: this.tableName, products: this.dataSource });
+  }
 }

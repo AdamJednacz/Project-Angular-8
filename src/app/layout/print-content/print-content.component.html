@@ -1,1 +1,19 @@
-<p>print-content works!</p>
+<div *ngFor="let table of this.tablesService.tablesArray">
+  <h3>{{ table.name }}</h3>
+  <table>
+    <thead>
+    <tr>
+      <th>Produkt</th>
+      <th>Ilość</th>
+      <th>Waga</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let product of table.products">
+      <td>{{ product.product }}</td>
+      <td>{{ product.quantity }}</td>
+      <td>{{ product.weight }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

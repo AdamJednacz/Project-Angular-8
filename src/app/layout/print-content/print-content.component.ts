@@ -1,12 +1,23 @@
-import { Component } from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
+
+import {NgForOf} from "@angular/common";
+
+import {TablesService} from "../content/tables/tables.service";
 
 @Component({
   selector: 'app-print-content',
   standalone: true,
-  imports: [],
+  imports: [
+    NgForOf
+  ],
   templateUrl: './print-content.component.html',
-  styleUrl: './print-content.component.scss'
+  styleUrls: ['./print-content.component.scss']
 })
-export class PrintContentComponent {
+export class PrintContentComponent implements OnInit {
 
+  tablesService = inject(TablesService);
+
+  ngOnInit() {
+    this.tablesService.loadFromLocalStorage();
+  }
 }

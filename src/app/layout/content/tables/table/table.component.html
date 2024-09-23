@@ -1,24 +1,24 @@
 <div>
-  <form [formGroup]="form">
-    <input class="name" formControlName="name" placeholder="Wpisz nazwę tabeli" />
-  </form>
-
+    <input class="name" placeholder="Wpisz nazwę tabeli" [(ngModel)]="tableName" />
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Kolumna pozycji -->
     <ng-container matColumnDef="position">
       <th mat-header-cell *matHeaderCellDef> No. </th>
       <td mat-cell *matCellDef="let element; let i = index"> {{i + 1}} </td>
     </ng-container>
 
+    <!-- Kolumna produkt -->
     <ng-container matColumnDef="product">
       <th mat-header-cell *matHeaderCellDef> Produkt </th>
       <td mat-cell *matCellDef="let element; let i = index">
-        <input  placeholder="Wpisz produkt" list="produkty" [(ngModel)]="dataSource[i].product" />
+        <input placeholder="Wpisz produkt" list="produkty" [(ngModel)]="dataSource[i].product" />
         <datalist id="produkty">
-          <option  *ngFor="let product of products" [value]="product">{{ product }}</option>
+          <option *ngFor="let product of products" [value]="product">{{ product }}</option>
         </datalist>
       </td>
     </ng-container>
 
+    <!-- Kolumna ilość -->
     <ng-container matColumnDef="quantity">
       <th mat-header-cell *matHeaderCellDef> Ilość</th>
       <td mat-cell *matCellDef="let element; let i = index">
@@ -26,6 +26,7 @@
       </td>
     </ng-container>
 
+    <!-- Kolumna waga -->
     <ng-container matColumnDef="weight">
       <th mat-header-cell *matHeaderCellDef> Waga (kg) </th>
       <td mat-cell *matCellDef="let element; let i = index">
@@ -33,6 +34,7 @@
       </td>
     </ng-container>
 
+    <!-- Kolumna akcji -->
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef> Akcje </th>
       <td mat-cell *matCellDef="let element; let i = index">

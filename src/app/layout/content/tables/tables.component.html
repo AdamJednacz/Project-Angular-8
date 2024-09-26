@@ -1,12 +1,8 @@
-<div class="container" *ngFor="let table of this.tablesService.tablesArray; let i = index">
-  <app-table
-    [tableData]="table"
-    (tableChange)="updateTable(i, $event)"
-  ></app-table>
+<div class="container" *ngFor="let table of tables$ | async; let i = index">
+  <!-- Przekazanie tabeli do komponentu dziecka -->
+  <app-table [tableData]="table"  (tableChange)="storeUpdateTable(i, $event)"></app-table>
   <div class="buttons">
-  <button  mat-flat-button (click)="addTable()">Dodaj nową tabelę</button>
-  <button mat-flat-button color="warn" (click)="removeTable(i)">Usuń tabelę</button>
+    <button mat-flat-button (click)="storeAddTable()">Dodaj nową tabelę</button>
+    <button mat-flat-button color="warn" (click)="storeRemoveTable(i)">Usuń tabelę</button>
   </div>
 </div>
-
-

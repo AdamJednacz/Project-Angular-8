@@ -5,6 +5,11 @@ import { MatTableModule } from "@angular/material/table";
 import { ProductElement } from "./product-element.model";
 import { MatButton } from "@angular/material/button";
 import {FormsModule} from "@angular/forms";
+import {Store} from "@ngrx/store";
+import {Table, TablesState} from "../../../../store/tables-store/tables.reducers";
+import {ButtonClickService} from "../../../../button-click.service";
+
+
 
 @Component({
   selector: 'app-table',
@@ -23,48 +28,49 @@ export class TableComponent implements OnInit {
   @Input() tableData: { name: string, products: ProductElement[] } | null = null;
   @Output() tableChange = new EventEmitter<{ name: string, products: ProductElement[] }>();
 
-  productsService = inject(ProductsService);
+
+
   tableName: string = '';
   displayedColumns: string[] = ['position', 'product', 'quantity', 'weight', 'actions'];
   dataSource: ProductElement[] = [];
   products: string[] = [];
 
-  initialDataSource: ProductElement[] = []; // To store the initial state of the table
+
+  productsService = inject(ProductsService);
+  buttonService = inject(ButtonClickService)
+
+
+  constructor(private store: Store<{ tables: TablesState }>) {}
 
   ngOnInit() {
-    this.products = this.productsService.getProducts(); // Fetch the list of products
-
+    this.products = this.productsService.getProducts();
     if (this.tableData) {
       this.tableName = this.tableData.name;
-      this.dataSource = this.tableData.products.length > 0 ? [...this.tableData.products] : [{ product: '', quantity: 0, weight: null }];
-    } else {
-      this.dataSource.push({ product: '', quantity: 0, weight: 0 });
+      this.dataSource = this.tableData.products.length > 0 ? JSON.parse(JSON.stringify(this.tableData.products)) : [{ product: '', quantity: 0, weight: null }];
     }
-
-
+    this.buttonService.buttonClick$.subscribe(button => {
+      if(button){
+        this.emitTableChange();
+      }
+    })
   }
 
-  // Manual comparison function to detect if there are changes
-
-
-  addRow() {
-    const newRow: ProductElement = { product: '', quantity: 0, weight: null };
-    this.dataSource.push(newRow); // Add new row to the table
-    this.emitTableChange();       // Emit updated table data
+  addRow(index:number) {
+    const newRow = { product: '', quantity: 0, weight: null };
+    this.dataSource.splice(index + 1, 0, newRow);
+    this.emitTableChange();
   }
 
   removeRow(index: number) {
-    this.dataSource.splice(index, 1); // Remove row from table
-    if (this.dataSource.length === 0) {
-      this.dataSource.push({ product: '', quantity: 0, weight: null }); // Ensure at least one row exists
-    }
-    this.emitTableChange();       // Emit updated table data
+    if (this.dataSource.length <= 1) return;
+    this.dataSource.splice(index, 1);
+    this.emitTableChange();
   }
 
   emitTableChange() {
-
-
-      this.tableChange.emit({ name: this.tableName, products: this.dataSource });
-
+    this.tableChange.emit({
+      name: this.tableName,
+      products: [...this.dataSource]
+    });
   }
 }

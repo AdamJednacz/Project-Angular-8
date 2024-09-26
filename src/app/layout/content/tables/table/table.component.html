@@ -1,6 +1,6 @@
 <div>
     <input class="name" placeholder="Wpisz nazwę tabeli" [(ngModel)]="tableName" />
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" >
     <!-- Kolumna pozycji -->
     <ng-container matColumnDef="position">
       <th mat-header-cell *matHeaderCellDef> No. </th>
@@ -39,7 +39,7 @@
       <th mat-header-cell *matHeaderCellDef> Akcje </th>
       <td mat-cell *matCellDef="let element; let i = index">
         <button (click)="removeRow(i)">Usuń</button>
-        <button (click)="addRow()">Dodaj wiersz</button>
+        <button (click)="addRow(i)">Dodaj wiersz</button>
       </td>
     </ng-container>
 

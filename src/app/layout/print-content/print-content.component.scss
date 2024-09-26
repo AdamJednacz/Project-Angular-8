@@ -1,0 +1,60 @@
+.tables {
+  margin: 20px;
+  table {
+
+    border-collapse: collapse;
+
+    th, td {
+      font-weight:unset;
+      text-align: left;
+      border: 1px solid #ccc;
+      font-size: 12px ;
+      padding: 5px;
+    }
+
+    .table-name-header {
+      font-weight: bold;
+      background-color: #f1f1f1;
+      text-align: center;
+      width: 15%;
+    }
+
+    .product-cell {
+      width: 25%;
+    }
+
+    .small-cell {
+      width: 25%;
+      text-align: right;
+    }
+
+    .empty-cell {
+      border: none;
+    }
+  }
+}
+body{
+
+}
+// Styl do druku
+@media print {
+
+  .tables {
+    margin: 0;
+
+    table {
+      width: 100%;
+      th, td {
+        border: 1px solid black;
+        padding: 2px;
+        font-size: 12px/10;
+        height: auto;
+
+      }
+
+      th {
+        background-color: #f0f0f0;
+      }
+    }
+  }
+}

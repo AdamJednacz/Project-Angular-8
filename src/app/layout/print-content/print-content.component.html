@@ -1,19 +1,27 @@
-<div *ngFor="let table of this.tablesService.tablesArray">
-  <h3>{{ table.name }}</h3>
+<div class="tables">
   <table>
     <thead>
     <tr>
+      <th>Klient </th>
       <th>Produkt</th>
       <th>Ilość</th>
-      <th>Waga</th>
+      <th>Waga (kg)</th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let product of table.products">
-      <td>{{ product.product }}</td>
-      <td>{{ product.quantity }}</td>
-      <td>{{ product.weight }}</td>
-    </tr>
+    <ng-container *ngFor="let table of tables$ | async">
+      <!-- Wiersz nagłówka dla tabeli -->
+      <tr>
+        <td  class="table-name-header">{{ table?.name }}</td>
+      </tr>
+      <!-- Sprawdź, czy table.products istnieje i jest tablicą -->
+      <tr *ngFor="let product of table.products">
+        <td class="empty-cell"></td> <!-- Pusta komórka zamiast nazwy tabeli -->
+        <td class="product-cell">{{ product.product }}</td>
+        <td class="small-cell">{{ product.quantity }}</td>
+        <td class="small-cell">{{ product.weight }}</td>
+      </tr>
+    </ng-container>
     </tbody>
   </table>
 </div>

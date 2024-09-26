@@ -1,0 +1,13 @@
+@media print {
+  body {
+    visibility: hidden; /* Ukryj całą stronę */
+  }
+
+  app-print-content {
+    visibility: visible; /* Pokaż tylko komponent do druku */
+  }
+
+  app-top-bar {
+    display: none; /* Ukryj top bar podczas drukowania */
+  }
+}

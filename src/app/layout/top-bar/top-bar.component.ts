@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
-import {RouterLink} from "@angular/router";
-import {MatButton} from "@angular/material/button";
+import { RouterLink } from "@angular/router";
+import { MatButton } from "@angular/material/button";
+import {ButtonClickService} from "../../button-click.service";
+import {Store} from "@ngrx/store";
+import {TablesState} from "../../store/tables-store/tables.reducers";
+
 
 @Component({
   selector: 'app-top-bar',
@@ -10,8 +14,12 @@ import {MatButton} from "@angular/material/button";
     MatButton
   ],
   templateUrl: './top-bar.component.html',
-  styleUrl: './top-bar.component.scss'
+  styleUrls: ['./top-bar.component.scss']
 })
 export class TopBarComponent {
+  constructor(private buttonClickService: ButtonClickService) {}
 
+  onButtonClick(buttonName: string) {
+    this.buttonClickService.emitButtonClick(buttonName); // Emit the button click event
+  }
 }

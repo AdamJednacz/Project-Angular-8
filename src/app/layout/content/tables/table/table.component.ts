@@ -1,4 +1,14 @@
-import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+  QueryList,
+  ViewChildren
+} from '@angular/core';
 import { ProductsService } from "../../../../products.service";
 import { NgForOf, NgIf } from "@angular/common";
 import { MatTableModule } from "@angular/material/table";
@@ -8,6 +18,7 @@ import {FormsModule} from "@angular/forms";
 import {Store} from "@ngrx/store";
 import {Table, TablesState} from "../../../../store/tables-store/tables.reducers";
 import {ButtonClickService} from "../../../../button-click.service";
+import {last} from "rxjs";
 
 
 
@@ -25,22 +36,23 @@ import {ButtonClickService} from "../../../../button-click.service";
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit {
+
   @Input() tableData: { name: string, products: ProductElement[] } | null = null;
   @Output() tableChange = new EventEmitter<{ name: string, products: ProductElement[] }>();
 
-
-
+  private lastAddedInput!: ElementRef | null;
+  @ViewChildren('inputProduct') inputProducts!: QueryList<ElementRef>;
   tableName: string = '';
   displayedColumns: string[] = ['position', 'product', 'quantity', 'weight', 'actions'];
   dataSource: ProductElement[] = [];
   products: string[] = [];
-
 
   productsService = inject(ProductsService);
   buttonService = inject(ButtonClickService)
 
 
   constructor(private store: Store<{ tables: TablesState }>) {}
+
 
   ngOnInit() {
     this.products = this.productsService.getProducts();
@@ -53,13 +65,22 @@ export class TableComponent implements OnInit {
         this.emitTableChange();
       }
     })
+
+  }
+
+  ngAfterViewInit() {
+    if (this.inputProducts.length > 0) {
+      this.inputProducts.last.nativeElement.focus();
+    }
   }
 
   addRow(index:number) {
     const newRow = { product: '', quantity: 0, weight: null };
     this.dataSource.splice(index + 1, 0, newRow);
     this.emitTableChange();
+
   }
+
 
   removeRow(index: number) {
     if (this.dataSource.length <= 1) return;
@@ -73,4 +94,6 @@ export class TableComponent implements OnInit {
       products: [...this.dataSource]
     });
   }
+
+
 }

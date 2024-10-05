@@ -31,7 +31,32 @@ export class ProductsService {
       'Borówki', 'Rzepa biała', 'Brzoskwinie', 'Rzodkiewka', 'Czereśnie', 'Sałata', 'Jeżyny',
       'Sałata dekoracyjna czerwona', 'Maliny', 'Sałata dekoracyjna zielona', 'Pomidor Lima', 'Sałata freeze',
       'Porzeczki', 'Sałata rzymska', 'Śliwki polskie duże', 'Seler naciowy', 'Śliwki polskie małe',
-      'Szczaw', 'Truskawki', 'Szczypiorek', 'Szpinak', 'Tymianek'
+      'Szczaw', 'Truskawki', 'Szczypiorek', 'Szpinak', 'Tymianek',  "Maliny",
+      "Borówki",
+      "Figi",
+      "Groszek",
+      "Groszek cukrowy",
+      "Groszek czepny",
+      "Kiełki groszku",
+      "Porzeczki",
+      "Pak choy",
+      "Koper włoski",
+      "Cząber",
+      "Kiełki rzodkiewki",
+      "Kiełki brokuła",
+      "Kiełki lucerny",
+      "Kiełki buraka",
+      "Czosnek obrany",
+      "Pomidor koktajlowy mix",
+      "Storczyki",
+      "Bratki",
+      "Jarzynka",
+      "Mięta cięta",
+      "Bazylia cięta",
+      "Kiełki słonecznika",
+      "Marchewki kolorowe",
+      "Szparagi",
+      "Marakuja"
     ];
   }
 }

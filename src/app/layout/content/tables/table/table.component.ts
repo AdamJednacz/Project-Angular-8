@@ -85,7 +85,7 @@ export class TableComponent implements OnInit {
 
 
   addRow(index:number) {
-    const newRow = { product: '', quantity: 0, weight: null };
+    const newRow = { product: '', quantity: null, weight: null };
     this.dataSource.splice(index + 1, 0, newRow);
     this.lastAddedIndex = index + 1;
     this.emitTableChange();

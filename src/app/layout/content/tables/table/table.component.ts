@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -50,10 +51,10 @@ export class TableComponent implements OnInit {
   productsService = inject(ProductsService);
   buttonService = inject(ButtonClickService)
 
-
+  lastAddedIndex: number | null = null;
   constructor(private store: Store<{ tables: TablesState }>) {}
 
-
+  changeDetectorRef = inject(ChangeDetectorRef);
   ngOnInit() {
     this.products = this.productsService.getProducts();
     if (this.tableData) {
@@ -69,16 +70,27 @@ export class TableComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    if (this.inputProducts.length > 0) {
-      this.inputProducts.last.nativeElement.focus();
+
+
+    if (this.lastAddedIndex !== null) {
+      this.changeDetectorRef.detectChanges(); // Wymuszenie detekcji zmian
+      // Ustaw fokus na inputie o unikalnym id
+      const targetInputId = `product-input-${this.lastAddedIndex}`;
+      const targetInput = document.getElementById(targetInputId);
+      if (targetInput) {
+        targetInput.focus(); // Ustawienie focusu na odpowiednim elemencie
+      }
     }
   }
+
 
   addRow(index:number) {
     const newRow = { product: '', quantity: 0, weight: null };
     this.dataSource.splice(index + 1, 0, newRow);
+    this.lastAddedIndex = index + 1;
     this.emitTableChange();
 
+    setTimeout(() => this.ngAfterViewInit(), 0);
   }
 
 

@@ -11,7 +11,7 @@
     <ng-container matColumnDef="product">
       <th mat-header-cell *matHeaderCellDef> Produkt </th>
       <td mat-cell *matCellDef="let element; let i = index">
-        <input #inputProduct placeholder="Wpisz produkt" list="produkty" [(ngModel)]="dataSource[i].product"  />
+        <input   [attr.id]="'product-input-' + i"  #inputProduct placeholder="Wpisz produkt"  list="produkty" [(ngModel)]="dataSource[i].product"  />
         <datalist id="produkty">
           <option *ngFor="let product of products" [value]="product">{{ product }}</option>
         </datalist>

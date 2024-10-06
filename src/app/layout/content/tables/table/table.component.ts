@@ -90,7 +90,7 @@ export class TableComponent implements OnInit {
     this.lastAddedIndex = index + 1;
     this.emitTableChange();
 
-    setTimeout(() => this.ngAfterViewInit(), 0);
+    setTimeout(() => this.ngAfterViewInit(), 10);
   }
 
 

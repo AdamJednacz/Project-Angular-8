@@ -37,7 +37,7 @@ import {last} from "rxjs";
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit {
-
+  @Input() tableId: number | string = ''; // Unikalny identyfikator tabeli
   @Input() tableData: { name: string, products: ProductElement[] } | null = null;
   @Output() tableChange = new EventEmitter<{ name: string, products: ProductElement[] }>();
 
@@ -75,7 +75,7 @@ export class TableComponent implements OnInit {
     if (this.lastAddedIndex !== null) {
       this.changeDetectorRef.detectChanges(); // Wymuszenie detekcji zmian
       // Ustaw fokus na inputie o unikalnym id
-      const targetInputId = `product-input-${this.lastAddedIndex}`;
+      const targetInputId = `product-input-${this.tableId}-${this.lastAddedIndex}`;
       const targetInput = document.getElementById(targetInputId);
       if (targetInput) {
         targetInput.focus(); // Ustawienie focusu na odpowiednim elemencie

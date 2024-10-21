@@ -1,6 +1,6 @@
 <div class="container" *ngFor="let table of tables$ | async; let i = index">
   <!-- Przekazanie tabeli do komponentu dziecka -->
-  <app-table [tableData]="table"  (tableChange)="storeUpdateTable(i, $event)"></app-table>
+  <app-table [tableData]="table"   [tableId]="i"  (tableChange)="storeUpdateTable(i, $event)"></app-table>
   <div class="buttons">
     <button mat-flat-button (click)="storeAddTable()">Dodaj nową tabelę</button>
     <button mat-flat-button color="warn" (click)="storeRemoveTable(i)">Usuń tabelę</button>

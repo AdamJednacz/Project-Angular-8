@@ -41,7 +41,7 @@ export class TablesComponent implements OnInit {
   }
 
   storeAddTable() {
-    const defaultRow: ProductElement = { product: '', quantity: 0, weight: null };
+    const defaultRow: ProductElement = { position:1,product: '', quantity: 0, weight: null };
     this.store.dispatch(addTable({ value: { name: '', products: [defaultRow] } }));
   }
 

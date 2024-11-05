@@ -31,9 +31,6 @@
       text-align: right;
     }
 
-    .empty-cell {
-      border: none;
-    }
   }
 }
 body{
@@ -50,7 +47,7 @@ body{
       th, td {
         border: 1px solid black;
         padding: 2px;
-        font-size: 12px/10;
+        font-size: 16px;
         height: auto;
 
       }

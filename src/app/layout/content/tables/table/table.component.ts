@@ -59,7 +59,7 @@ export class TableComponent implements OnInit {
     this.products = this.productsService.getProducts();
     if (this.tableData) {
       this.tableName = this.tableData.name;
-      this.dataSource = this.tableData.products.length > 0 ? JSON.parse(JSON.stringify(this.tableData.products)) : [{ product: '', quantity: 0, weight: null }];
+      this.dataSource = this.tableData.products.length > 0 ? JSON.parse(JSON.stringify(this.tableData.products)) : [{position:1, product: '', quantity: 0, weight: null }];
     }
     this.buttonService.buttonClick$.subscribe(button => {
       if(button){
@@ -85,11 +85,11 @@ export class TableComponent implements OnInit {
 
 
   addRow(index:number) {
-    const newRow = { product: '', quantity: null, weight: null };
+    const newRow = {position:index+2, product: '', quantity: null, weight: null };
     this.dataSource.splice(index + 1, 0, newRow);
     this.lastAddedIndex = index + 1;
     this.emitTableChange();
-
+    this.updatePositions(this.dataSource);
     setTimeout(() => this.ngAfterViewInit(), 10);
   }
 
@@ -97,6 +97,7 @@ export class TableComponent implements OnInit {
   removeRow(index: number) {
     if (this.dataSource.length <= 1) return;
     this.dataSource.splice(index, 1);
+    this.updatePositions(this.dataSource);
     this.emitTableChange();
   }
 
@@ -107,5 +108,10 @@ export class TableComponent implements OnInit {
     });
   }
 
-
+  private updatePositions(dataSource: ProductElement[]): ProductElement[] {
+    return dataSource.map((item, index) => ({
+      ...item,
+      position: index + 1
+    }));
+  }
 }

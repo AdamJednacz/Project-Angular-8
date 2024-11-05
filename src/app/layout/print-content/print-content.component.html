@@ -16,7 +16,7 @@
       </tr>
       <!-- Sprawdź, czy table.products istnieje i jest tablicą -->
       <tr *ngFor="let product of table.products">
-        <td class="empty-cell"></td> <!-- Pusta komórka zamiast nazwy tabeli -->
+        <td>{{product.position}}</td> <!-- Pusta komórka zamiast nazwy tabeli -->
         <td class="product-cell">{{ product.product }}</td>
         <td class="small-cell">{{ product.quantity }}</td>
         <td class="small-cell">{{ product.weight }}</td>

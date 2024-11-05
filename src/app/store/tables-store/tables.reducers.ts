@@ -13,7 +13,7 @@ export interface TablesState {
 }
 
 export const initialState: TablesState = {
-  tables: [{name:'',products:[{ product: '', quantity: 0, weight: null }]}],
+  tables: [{name:'',products:[{ position:1,product: '', quantity: 0, weight: null }]}],
 };
 
 export const tablesReducers = createReducer(

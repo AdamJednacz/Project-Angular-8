@@ -1,5 +1,5 @@
 export interface ProductElement {
-  position:number;
+  position:number|null;
   product: string;
   quantity: null|number|string;
   weight: null|number;

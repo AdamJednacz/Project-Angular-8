@@ -1,5 +1,6 @@
 <div class="tables">
   <table>
+    <div class="table">
     <thead>
     <tr>
       <th>Klient </th>
@@ -8,9 +9,9 @@
       <th>Waga (kg)</th>
     </tr>
     </thead>
-    <tbody>
-    <ng-container *ngFor="let table of tables$ | async">
-      <!-- Wiersz nagłówka dla tabeli -->
+
+    <ng-container   *ngFor="let table of tables$ | async">
+      <tbody>
       <tr>
         <td  class="table-name-header">{{ table?.name }}</td>
       </tr>
@@ -21,7 +22,9 @@
         <td class="small-cell">{{ product.quantity }}</td>
         <td class="small-cell">{{ product.weight }}</td>
       </tr>
+      </tbody>
     </ng-container>
-    </tbody>
+
+    </div>
   </table>
 </div>

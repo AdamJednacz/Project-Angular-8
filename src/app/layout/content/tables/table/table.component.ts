@@ -19,7 +19,7 @@ import {FormsModule} from "@angular/forms";
 import {Store} from "@ngrx/store";
 import {Table, TablesState} from "../../../../store/tables-store/tables.reducers";
 import {ButtonClickService} from "../../../../button-click.service";
-import {last} from "rxjs";
+
 
 
 
@@ -71,10 +71,8 @@ export class TableComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-
     if (this.lastAddedIndex !== null) {
       this.changeDetectorRef.detectChanges();
-
       const targetInputId = `product-input-${this.tableId}-${this.lastAddedIndex}`;
       const targetInput = document.getElementById(targetInputId);
       if (targetInput) {
@@ -82,7 +80,6 @@ export class TableComponent implements OnInit {
       }
     }
   }
-
 
   addRow(index:number) {
     const newRow:ProductElement = {position:index+1, product: '', quantity: null, weight: null };
